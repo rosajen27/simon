@@ -5,7 +5,7 @@ Simon is an electronic game of memory skill invented by Ralph H. Baer and Howard
 
 Deployed Website: https://rosajen27.github.io/simon/
 
-![simon](./images/demo.png)
+![simon](./imgs/demo.png)
 
 ## Built With
 

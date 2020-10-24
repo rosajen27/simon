@@ -3,6 +3,11 @@ body {
   background-color: #011F3F;
 }
 
+p, a {
+  font-family: 'Press Start 2P', cursive;
+  color: #FEF2BF;
+}
+
 #level-title {
   font-family: 'Press Start 2P', cursive;
   font-size: 3rem;
