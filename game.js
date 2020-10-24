@@ -23,3 +23,12 @@ function nextSequence() {
     audio.play();
 }
 
+// Use jQuery to detect when any of the buttons are clicked and trigger a handler function
+$(".btn").click(function () {
+
+    // store the id of the button that got clicked
+    var userChosenColor = $(this).attr( "id" );
+    console.log(userChosenColor);
+});
+
+
