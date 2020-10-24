@@ -17,5 +17,9 @@ function nextSequence() {
 
     // use jQuery to select the button with the same id as the randomChosenColor
     jQuery("#" + randomChosenColor).fadeOut(100).fadeIn(100);
+
+    // play the sound for the button color selected
+    var audio = new Audio("sounds/" + randomChosenColor + ".mp3");
+    audio.play();
 }
 
