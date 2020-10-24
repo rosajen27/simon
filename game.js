@@ -18,7 +18,7 @@ function nextSequence() {
     console.log(gamePattern);
 
     // use jQuery to select the button with the same id as the randomChosenColor
-    jQuery("#" + randomChosenColor).fadeOut(100).fadeIn(100);
+    $("#" + randomChosenColor).fadeOut(100).fadeIn(100);
 
     // play the sound for the button color selected
     var audio = new Audio("sounds/" + randomChosenColor + ".mp3");
@@ -41,4 +41,15 @@ $(".btn").click(function () {
     audio.play();
 });
 
+// Add Animations to User Clicks
+function animatePress(currentColor) {
 
+    // use jQuery to add the pressed class to the button that gets clicked
+    $("#" + currentColor).addClass("pressed");
+
+    // remove the pressed class after a 100 milliseconds
+    setTimeout(function () {
+        $("#" + currentColor).removeClass("pressed");
+    }, 100);
+    
+}
