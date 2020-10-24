@@ -15,5 +15,7 @@ function nextSequence() {
     gamePattern.push(randomChosenColor);
     console.log(gamePattern);
 
-
+    // use jQuery to select the button with the same id as the randomChosenColor
+    jQuery("#" + randomChosenColor).fadeOut(100).fadeIn(100);
 }
+
