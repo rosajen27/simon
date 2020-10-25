@@ -1,8 +1,25 @@
-var userClickedPattern = [];
+var buttonColors = ["red", "blue", "green", "yellow"];
 
+var userClickedPattern = [];
 var gamePattern = [];
 
-var buttonColors = ["red", "blue", "green", "yellow"];
+// variable that determines if game has started
+var started = false;
+// variable that determines game level
+var level = 0;
+
+// Use jQuery to detect when a keyboard key has been pressed, 
+// when that happens for the first time, call nextSequence().
+$(document).keypress(function () {
+
+    if (!started) {
+
+        // when the game has started, change h1 title to say "Level 0".
+        $("#level-title").text("Level: " + level);
+        nextSequence();
+        started = true;
+    }
+});
 
 function nextSequence() {
     // generate a new random number between 0 and 3
@@ -51,5 +68,5 @@ function animatePress(currentColor) {
     setTimeout(function () {
         $("#" + currentColor).removeClass("pressed");
     }, 100);
-    
+
 }
