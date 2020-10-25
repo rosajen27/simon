@@ -21,7 +21,13 @@ $(document).keypress(function () {
     }
 });
 
+
 function nextSequence() {
+    // increase the level by 1 every time nextSequence() is called.
+    level++;
+    // update the h1 with this level increase change in the value of level.
+    $("#level-title").text("Level: " + level);
+
     // generate a new random number between 0 and 3
     var randomNumber = Math.floor(Math.random() * 4);
     console.log(randomNumber);
