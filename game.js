@@ -105,5 +105,16 @@ function checkAnswer(currentLevel) {
         }
     } else {
         console.log("wrong");
+        // play wrong mp3 if user got one of the answers wrong
+        var audio = new Audio("sounds/wrong.mp3");
+        audio.play();
+
+        // apply game-over style to body if user got one of the answers wrong
+        $("body").addClass("game-over");
+        // remove game-over style after 200 milliseconds
+        setTimeout(function () {
+            $("body").removeClass("game-over");
+        }, 200);
+
     }
 }
