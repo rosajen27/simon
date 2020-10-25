@@ -22,9 +22,79 @@ $(document).keypress(function () {
     }
 });
 
+
+// use jQuery to detect when any of the buttons are clicked and trigger a handler function
+$(".btn").click(function () {
+
+    // store the id of the button that got clicked
+    var userChosenColor = $(this).attr("id");
+    console.log(userChosenColor);
+
+    // add the contents of the variable userChosenColor to the end of userClickedPattern
+    userClickedPattern.push(userChosenColor);
+    console.log(userClickedPattern);
+
+    // play the sound for the button color the user clicked
+    var audio = new Audio("sounds/" + userChosenColor + ".mp3");
+    audio.play();
+
+    // animate pressed button
+    animatePress(userChosenColor);
+
+    // call checkAnswer after a user has clicked
+    // and chosen their answer, passing in the index of the last answer
+    // in the user's sequence
+    checkAnswer(userClickedPattern.length-1);
+});
+
+
+// check the user's answer against the game sequence
+function checkAnswer(currentLevel) {
+
+    if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
+
+        console.log("success");
+
+        // if the user got the most recent answer right
+        // then check that they have finished their sequence
+        // with another if statement
+
+        if (userClickedPattern.length === gamePattern.length) {
+
+            // begin nextSequence after a 1000 millisecond delay
+            // clear user array
+            setTimeout(function () {
+                nextSequence();
+            }, 1000);
+        }
+
+    } else {
+
+        console.log("wrong");
+
+        // play wrong mp3 if user got one of the answers wrong
+        var audio = new Audio("sounds/wrong.mp3");
+        audio.play();
+
+        // apply game-over style to body if user got one of the answers wrong
+        $("body").addClass("game-over");
+
+        // remove game-over style after 200 milliseconds
+        setTimeout(function () {
+            $("body").removeClass("game-over");
+        }, 200);
+
+        // change h1 title to Game Over
+        $("#level-title").text("Game Over, Press Any Key to Restart");
+
+    }
+}
+
+
 // function that begins next level/sequence of the game
 function nextSequence() {
-    // empty user array
+
+    // clear array
     userClickedPattern = [];
 
     // increase the level by 1 every time nextSequence() is called.
@@ -54,28 +124,6 @@ function nextSequence() {
 }
 
 
-// use jQuery to detect when any of the buttons are clicked and trigger a handler function
-$(".btn").click(function () {
-
-    // store the id of the button that got clicked
-    var userChosenColor = $(this).attr("id");
-    console.log(userChosenColor);
-
-    // add the contents of the variable userChosenColor to the end of userClickedPattern
-    userClickedPattern.push(userChosenColor);
-    console.log(userClickedPattern);
-
-    // play the sound for the button color the user clicked
-    var audio = new Audio("sounds/" + userChosenColor + ".mp3");
-    audio.play();
-
-    // call checkAnswer after a user has clicked
-    // and chosen their answer, passing in the index of the last answer
-    // in the user's sequence
-    checkAnswer(userClickedPattern[userClickedPattern.length - 1]);
-});
-
-
 // add animations to user clicks
 function animatePress(currentColor) {
 
@@ -87,45 +135,4 @@ function animatePress(currentColor) {
         $("#" + currentColor).removeClass("pressed");
     }, 100);
 
-}
-
-// check the user's answer against the game sequence
-function checkAnswer(currentLevel) {
-
-    if (currentLevel === gamePattern[gamePattern.length - 1]) {
-
-        console.log("success");
-
-        // if the user got the most recent answer right
-        // then check that they have finished their sequence
-        // with another if statement
-
-        if (userClickedPattern.length === gamePattern.length) {
-
-            // begin nextSequence after a 1000 millisecond delay
-            // clear user array
-            setTimeout(function () {
-                nextSequence();
-            }, 1000);
-        } else {
-
-            console.log("wrong");
-
-            // play wrong mp3 if user got one of the answers wrong
-            var audio = new Audio("sounds/wrong.mp3");
-            audio.play();
-
-            // apply game-over style to body if user got one of the answers wrong
-            $("body").addClass("game-over");
-
-            // remove game-over style after 200 milliseconds
-            setTimeout(function () {
-                $("body").removeClass("game-over");
-            }, 200);
-
-            // change h1 title to Game Over
-            $("#level-title").text("Game Over, Press Any Key to Restart");
-
-        }
-    }
 }
