@@ -24,9 +24,12 @@ $(document).keypress(function () {
 
 // function that begins next level/sequence of the game
 function nextSequence() {
+    // empty user array
+    userClickedPattern = [];
+
     // increase the level by 1 every time nextSequence() is called.
     level++;
-    
+
     // update the h1 with this level increase change in the value of level.
     $("#level-title").text("Level: " + level);
 
@@ -98,32 +101,31 @@ function checkAnswer(currentLevel) {
         // with another if statement
 
         if (userClickedPattern.length === gamePattern.length) {
-            
+
             // begin nextSequence after a 1000 millisecond delay
             // clear user array
             setTimeout(function () {
                 nextSequence();
-                userClickedPattern.pop();
             }, 1000);
+        } else {
+
+            console.log("wrong");
+
+            // play wrong mp3 if user got one of the answers wrong
+            var audio = new Audio("sounds/wrong.mp3");
+            audio.play();
+
+            // apply game-over style to body if user got one of the answers wrong
+            $("body").addClass("game-over");
+
+            // remove game-over style after 200 milliseconds
+            setTimeout(function () {
+                $("body").removeClass("game-over");
+            }, 200);
+
+            // change h1 title to Game Over
+            $("#level-title").text("Game Over, Press Any Key to Restart");
+
         }
-    } else {
-
-        console.log("wrong");
-
-        // play wrong mp3 if user got one of the answers wrong
-        var audio = new Audio("sounds/wrong.mp3");
-        audio.play();
-
-        // apply game-over style to body if user got one of the answers wrong
-        $("body").addClass("game-over");
-
-        // remove game-over style after 200 milliseconds
-        setTimeout(function () {
-            $("body").removeClass("game-over");
-        }, 200);
-
-        // change h1 title to Game Over
-        $("#level-title").text("Game Over, Press Any Key to Restart");
-
     }
 }
