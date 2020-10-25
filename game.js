@@ -5,8 +5,11 @@ var gamePattern = [];
 
 // variable that determines if game has started
 var started = false;
+
 // variable that determines game level
 var level = 0;
+
+
 
 // Use jQuery to detect when a keyboard key has been pressed, 
 // when that happens for the first time, call nextSequence().
@@ -21,7 +24,7 @@ $(document).keypress(function () {
     }
 });
 
-
+// function that begins next level/sequence of the game
 function nextSequence() {
     // increase the level by 1 every time nextSequence() is called.
     level++;
@@ -48,7 +51,8 @@ function nextSequence() {
     audio.play();
 }
 
-// Use jQuery to detect when any of the buttons are clicked and trigger a handler function
+
+// use jQuery to detect when any of the buttons are clicked and trigger a handler function
 $(".btn").click(function () {
 
     // store the id of the button that got clicked
@@ -62,9 +66,15 @@ $(".btn").click(function () {
     // play the sound for the button color the user clicked
     var audio = new Audio("sounds/" + userChosenColor + ".mp3");
     audio.play();
+
+    // call checkAnswer after a user has clicked
+    // and chosen their answer, passing in the index of the last answer
+    // in the user's sequence
+    checkAnswer(userClickedPattern[userClickedPattern.length - 1]);
 });
 
-// Add Animations to User Clicks
+
+// add animations to user clicks
 function animatePress(currentColor) {
 
     // use jQuery to add the pressed class to the button that gets clicked
@@ -75,4 +85,25 @@ function animatePress(currentColor) {
         $("#" + currentColor).removeClass("pressed");
     }, 100);
 
+}
+
+// check the user's answer against the game sequence
+function checkAnswer(currentLevel) {
+
+    if (currentLevel === gamePattern[gamePattern.length - 1]) {
+        console.log("success");
+        // if the user got the most recent answer right
+        // then check that they have finished their sequence
+        // with another if statement
+        if (userClickedPattern.length === gamePattern.length) {
+            // begin nextSequence after a 1000 millisecond delay
+            // clear user array
+            setTimeout(function () {
+                nextSequence();
+                userClickedPattern.pop();
+            }, 1000);
+        }
+    } else {
+        console.log("wrong");
+    }
 }
