@@ -9,8 +9,6 @@ var started = false;
 // variable that determines game level
 var level = 0;
 
-
-
 // Use jQuery to detect when a keyboard key has been pressed, 
 // when that happens for the first time, call nextSequence().
 $(document).keypress(function () {
@@ -28,6 +26,7 @@ $(document).keypress(function () {
 function nextSequence() {
     // increase the level by 1 every time nextSequence() is called.
     level++;
+    
     // update the h1 with this level increase change in the value of level.
     $("#level-title").text("Level: " + level);
 
@@ -91,11 +90,15 @@ function animatePress(currentColor) {
 function checkAnswer(currentLevel) {
 
     if (currentLevel === gamePattern[gamePattern.length - 1]) {
+
         console.log("success");
+
         // if the user got the most recent answer right
         // then check that they have finished their sequence
         // with another if statement
+
         if (userClickedPattern.length === gamePattern.length) {
+            
             // begin nextSequence after a 1000 millisecond delay
             // clear user array
             setTimeout(function () {
@@ -104,17 +107,23 @@ function checkAnswer(currentLevel) {
             }, 1000);
         }
     } else {
+
         console.log("wrong");
+
         // play wrong mp3 if user got one of the answers wrong
         var audio = new Audio("sounds/wrong.mp3");
         audio.play();
 
         // apply game-over style to body if user got one of the answers wrong
         $("body").addClass("game-over");
+
         // remove game-over style after 200 milliseconds
         setTimeout(function () {
             $("body").removeClass("game-over");
         }, 200);
+
+        // change h1 title to Game Over
+        $("#level-title").text("Game Over, Press Any Key to Restart");
 
     }
 }
