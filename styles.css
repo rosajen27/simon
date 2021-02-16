@@ -11,8 +11,19 @@ p, a {
 #level-title {
   font-family: 'Press Start 2P', cursive;
   font-size: 3rem;
-  margin:  5%;
   color: #FEF2BF;
+}
+
+#begin {
+  border: 3px solid #fff;
+  width: fit-content;
+  margin: 0 auto 32px auto;
+  padding: 18px;
+  border-radius: 8px;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 .container {
